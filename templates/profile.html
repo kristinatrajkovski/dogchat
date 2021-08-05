@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style>
+
+.friendbutton {
+    background-color: white;
+}
+.bigbox {
+  background-color: rgb(90, 181, 235);
+  border-radius: 6px;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  color: white;
+  display: block;
+  padding: 2rem;
+  font-size: 16pt;
+}
+
+div#bigbox a:link { color: #ffffff; }
+div#bigbox a:visited { color: #ffffff; }
+div#bigbox a:hover { color: #ffffff; }
+div#bigbox a:active { color: #ffffff; }
+</style>
+<div class="bigbox" id="bigbox">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-128x128">
+
+            <a href="{{url_for('profile', dog_id=dog['Name'])}}"><img src="{{url_for('static', filename=dog['Picture'])}}"alt="Image"></a>
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><a href="{{url_for('profile', dog_id=dog['Name'])}}">{{dog['Name']}}</a></strong> <small><a href="{{url_for('profile', dog_id=dog['Name'])}}">@{{dog['Username']}}</a></small> <small>(Birthday: {{dog['Birthday']}} )</small> 
+            <br>
+            <p>
+                {{dog['Bio']}}
+            </p>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link, friendbutton">
+                    <span class="icon-text">
+                        <span class="icon">
+                            <i class="fas fa-dog"></i>
+                        </span>
+                        <span>Add Friend</span>
+                      </span>
+                  </button>
+                </div>
+                </div>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+<br><br>
+  {% for post in dog['Posts'] %}
+  <div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <a href="{{url_for('profile', dog_id=post['Name'])}}"><img src="{{url_for('static', filename=post['Picture'])}}"alt="Image"></a>
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><a href="{{url_for('profile', dog_id=dog['Name'])}}">{{dog['Name']}}</a></strong> <small><a href="{{url_for('profile', dog_id=dog['Name'])}}">@{{dog['Username']}}</a></small> <small>{{post['DateTime']}}</small>
+            <br>
+            {{post['Text']}}
+            </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="like">
+                <span class="icon-text">
+                    <span class="icon is-small">
+                      <i class="fas fa-heart"></i>
+                    </span>
+                    <span>{{(post['Likes'] | count)}}</span>
+                  </span>
+            </a>
+            <a class="level-item" aria-label="like" href="{{url_for('comments', post_id=post['PostId'])}}">
+                <span class="icon-text">
+                    <span class="icon is-small">
+                      <i class="fas fa-comment"></i>
+                    </span>
+                    <span>{{(post['Comments'] | count)}}</span>
+                  </span>
+            </a>
+            
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+      {% endfor %}
+{% endblock %}
