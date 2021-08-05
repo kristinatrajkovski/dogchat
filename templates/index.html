@@ -79,15 +79,15 @@
         <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
-              <img src="{{url_for('static', filename='freddie.jpg')}}"alt="Image">
+              <img src="{{url_for('static', filename=post['Picture'])}}"alt="Image">
             </figure>
           </div>
           <div class="media-content">
             <div class="content">
               <p>
-                <strong>Freddie</strong> <small>@freddie123</small> <small>(July 27, 10PM)</small>
+                <strong>{{post['Name']}}</strong> <small>@{{post['Username']}}</small> <small>{{post['DateTime']}}</small>
                 <br>
-                {{post}}
+                {{post['Text']}}
                 </p>
             </div>
             <nav class="level is-mobile">
@@ -97,7 +97,7 @@
                         <span class="icon is-small">
                           <i class="fas fa-heart"></i>
                         </span>
-                        <span>3</span>
+                        <span>{{post['LikesN']}}</span>
                       </span>
                 </a>
                 <a class="level-item" aria-label="like">
@@ -105,7 +105,7 @@
                         <span class="icon is-small">
                           <i class="fas fa-comment"></i>
                         </span>
-                        <span>3</span>
+                        <span>{{post['CommentsN']}}</span>
                       </span>
                 </a>
                 
